@@ -6,27 +6,43 @@ public class Program
     {
         try 
         {
-            var cmdOption = args[0].ToLower();
-            var inputFilePath = args[1];
 
-            var inputFile = new FileInfo(inputFilePath);
+            string cmdOption, inputFilePath;
+            FileInfo inputFile;
 
-
-            switch (cmdOption)
+            if  (args.Length == 1)
             {
-                case "-cc":
-                    Console.WriteLine($"{inputFile.Length} {inputFile.Name}");
-                    break;
-                
-                case "-l":
-                    Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
-                    break;
-
-                case "-w":
-                    Console.WriteLine($"{GetWordsCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
-                    break;
-            
+                inputFilePath = args[0];
+                inputFile = new FileInfo(inputFilePath);
+                Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {GetWordsCountInTextFileByRegex(inputFilePath)} {GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
             }
+
+            else 
+            {
+                cmdOption = args[0].ToLower();
+                inputFilePath = args[1];
+                inputFile = new FileInfo(inputFilePath);
+
+                switch (cmdOption)
+                {
+                    case "-cc":
+                        Console.WriteLine($"{inputFile.Length} {inputFile.Name}");
+                        break;
+                    
+                    case "-l":
+                        Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
+                        break;
+
+                    case "-w":
+                        Console.WriteLine($"{GetWordsCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
+                        break;
+                    case "-m":
+                        Console.WriteLine($"{GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
+                        break;
+                
+                }
+            }
+            
         } 
         catch (IndexOutOfRangeException)
         {
@@ -38,7 +54,6 @@ public class Program
         }
         
     } 
-
 
     private static int GetLinesCountInTextFileByRegex(string filePath)
     {
@@ -58,6 +73,12 @@ public class Program
         MatchCollection matches = wordRegex.Matches(content);
 
         return matches.Count;
+    }
+
+    private static int GetCharsCountInTextFile(string filePath)
+    {
+        string content = File.ReadAllText(filePath);
+        return content.Length;
     }
 }
 
