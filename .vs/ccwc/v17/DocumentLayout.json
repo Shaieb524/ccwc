@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|c:\\users\\robin\\onedrive\\desktop\\dev\\personal\\codingchallanges\\ccwc\\ccwc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|solutionrelative:ccwc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|c:\\users\\robin\\onedrive\\desktop\\dev\\personal\\codingchallanges\\ccwc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -19,12 +23,24 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ccwc",
+              "DocumentMoniker": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\ccwc.csproj",
+              "RelativeDocumentMoniker": "ccwc.csproj",
+              "ToolTip": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\ccwc.csproj",
+              "RelativeToolTip": "ccwc.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-19T21:43:14.27Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAoAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-19T21:16:57.087Z",
               "EditorCaption": ""

@@ -1,4 +1,6 @@
-﻿public class Program
+﻿using System.Text.RegularExpressions;
+
+public class Program
 {
     public static void Main(string[] args) 
     {
@@ -19,6 +21,10 @@
                 case "-l":
                     Console.WriteLine($"{File.ReadAllLines(inputFilePath).Count()} {inputFile.Name}");
                     break;
+
+                case "-w":
+                    Console.WriteLine($"{GetWordsCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
+                    break;
             
             }
         } 
@@ -33,5 +39,18 @@
         
     } 
 
+
+    //TODO check why it is not accurate
+    private static int GetWordsCountInTextFileByRegex(string filePath)
+    {
+        var content = File.ReadAllText(filePath);
+
+        // a word is a sequence of one character or more (\w+) between two boundaries (\b)
+        Regex wordRegex = new Regex(@"\b\w+\b");
+
+        MatchCollection matches = wordRegex.Matches(content);
+
+        return matches.Count;
+    }
 }
 
