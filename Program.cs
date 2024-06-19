@@ -19,7 +19,7 @@ public class Program
                     break;
                 
                 case "-l":
-                    Console.WriteLine($"{File.ReadAllLines(inputFilePath).Count()} {inputFile.Name}");
+                    Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
                     break;
 
                 case "-w":
@@ -40,14 +40,21 @@ public class Program
     } 
 
 
+    private static int GetLinesCountInTextFileByRegex(string filePath)
+    {
+        var content = File.ReadAllText(filePath);
+        Regex wordRegex = new Regex(@"\n");
+        MatchCollection matches = wordRegex.Matches(content);
+
+        return matches.Count;
+    }
+
     //TODO check why it is not accurate
     private static int GetWordsCountInTextFileByRegex(string filePath)
     {
         var content = File.ReadAllText(filePath);
-
         // a word is a sequence of one character or more (\w+) between two boundaries (\b)
         Regex wordRegex = new Regex(@"\b\w+\b");
-
         MatchCollection matches = wordRegex.Matches(content);
 
         return matches.Count;
