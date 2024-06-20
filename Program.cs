@@ -6,8 +6,7 @@ class Program
     {
         try 
         {
-
-            string cmdOption, inputFilePath;
+            string inputFilePath;
             FileInfo inputFile;
 
             if  (args.Length == 1)
@@ -16,33 +15,9 @@ class Program
                 inputFile = new FileInfo(inputFilePath);
                 Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {GetWordsCountInTextFileByRegex(inputFilePath)} {GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
             }
-
             else 
             {
-                cmdOption = args[0].ToLower();
-                inputFilePath = args[1];
-                inputFile = new FileInfo(inputFilePath);
-
-                switch (cmdOption)
-                {
-                    case "-cc":
-                        Console.WriteLine($"{inputFile.Length} {inputFile.Name}");
-                        break;
-                    
-                    case "-l":
-                        Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
-                        break;
-
-                    case "-w":
-                        Console.WriteLine($"{GetWordsCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
-                        break;
-                    case "-m":
-                        Console.WriteLine($"{GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
-                        break;
-
-                    default:
-                        break;
-                }
+                HanldeOptions(args);  
             }
             
         } 
@@ -56,6 +31,34 @@ class Program
         }
         
     } 
+
+    static void HanldeOptions(string[] args)
+    {
+        var cmdOption = args[0].ToLower();
+        var inputFilePath = args[1];
+        var inputFile = new FileInfo(inputFilePath);
+
+        switch (cmdOption)
+        {
+            case "-cc":
+                Console.WriteLine($"{inputFile.Length} {inputFile.Name}");
+                break;
+            
+            case "-l":
+                Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
+                break;
+
+            case "-w":
+                Console.WriteLine($"{GetWordsCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
+                break;
+            case "-m":
+                Console.WriteLine($"{GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
+                break;
+
+            default:
+                break;
+        }
+    }
 
     static int GetLinesCountInTextFileByRegex(string filePath)
     {
