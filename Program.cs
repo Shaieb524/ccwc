@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-public class Program
+class Program
 {
-    public static void Main(string[] args) 
+    static void Main(string[] args) 
     {
         try 
         {
@@ -39,7 +39,9 @@ public class Program
                     case "-m":
                         Console.WriteLine($"{GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
                         break;
-                
+
+                    default:
+                        break;
                 }
             }
             
@@ -55,7 +57,7 @@ public class Program
         
     } 
 
-    private static int GetLinesCountInTextFileByRegex(string filePath)
+    static int GetLinesCountInTextFileByRegex(string filePath)
     {
         var content = File.ReadAllText(filePath);
         Regex wordRegex = new Regex(@"\n");
@@ -65,7 +67,7 @@ public class Program
     }
 
     //TODO check why it is not accurate
-    private static int GetWordsCountInTextFileByRegex(string filePath)
+    static int GetWordsCountInTextFileByRegex(string filePath)
     {
         var content = File.ReadAllText(filePath);
         // a word is a sequence of one character or more (\w+) between two boundaries (\b)
@@ -75,7 +77,7 @@ public class Program
         return matches.Count;
     }
 
-    private static int GetCharsCountInTextFile(string filePath)
+    static int GetCharsCountInTextFile(string filePath)
     {
         string content = File.ReadAllText(filePath);
         return content.Length;
