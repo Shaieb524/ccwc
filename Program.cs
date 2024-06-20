@@ -16,11 +16,11 @@ class Program
                 if (firstArg.StartsWith("-"))
                 {
                     // file name not passed
-                    // TODO process from piped standard input
-                    string s;
-                    while ((s = Console.ReadLine()) != null)
+                    Stream inputStream = Console.OpenStandardInput();
+                    using (StreamReader reader = new StreamReader(inputStream))
                     {
-                        Console.WriteLine(s);
+                        string input = reader.ReadToEnd();
+                        HanldeOptionsForTextInput(args, input);
                     }
                 }
                 else 
@@ -33,7 +33,7 @@ class Program
             }
             else 
             {
-                HanldeOptions(args);  
+                HanldeOptionsForTextFile(args);  
             }
             
         } 
@@ -48,7 +48,59 @@ class Program
         
     } 
 
-    static void HanldeOptions(string[] args)
+    // Duplicate functions for file input and standard input to preserve the "Do One Thing" principle.
+    #region Standard Input
+    static void HanldeOptionsForTextInput(string[] args, string standardInput)
+    {
+        var cmdOption = args[0].ToLower();
+
+        switch (cmdOption)
+        {
+            case "-cc":
+                Console.WriteLine($"{standardInput.Length}");
+                break;
+            
+            case "-l":
+                Console.WriteLine($"{GetLinesCountInTextInputByRegex(standardInput)}");
+                break;
+
+            case "-w":
+                Console.WriteLine($"{GetWordsCountInTextInputByRegex(standardInput)}");
+                break;
+            case "-m":
+                Console.WriteLine($"{GetCharsCountInTextInput(standardInput)}");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    static int GetLinesCountInTextInputByRegex(string content)
+    {
+        Regex wordRegex = new Regex(@"\n");
+        MatchCollection matches = wordRegex.Matches(content);
+
+        return matches.Count;
+    }
+
+    static int GetWordsCountInTextInputByRegex(string content)
+    {
+        // a word is a sequence of one character or more (\w+) between two boundaries (\b)
+        Regex wordRegex = new Regex(@"\b\w+\b");
+        MatchCollection matches = wordRegex.Matches(content);
+
+        return matches.Count;
+    }
+
+    static int GetCharsCountInTextInput(string content)
+    {
+        return content.Length;
+    }
+    #endregion
+
+    #region File Input
+    static void HanldeOptionsForTextFile(string[] args)
     {
         var cmdOption = args[0].ToLower();
         var inputFilePath = args[1];
@@ -101,5 +153,6 @@ class Program
         string content = File.ReadAllText(filePath);
         return content.Length;
     }
+    #endregion
 }
 
