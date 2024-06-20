@@ -11,9 +11,25 @@ class Program
 
             if  (args.Length == 1)
             {
-                inputFilePath = args[0];
-                inputFile = new FileInfo(inputFilePath);
-                Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {GetWordsCountInTextFileByRegex(inputFilePath)} {GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
+                var firstArg = args[0];
+
+                if (firstArg.StartsWith("-"))
+                {
+                    // file name not passed
+                    // TODO process from piped standard input
+                    string s;
+                    while ((s = Console.ReadLine()) != null)
+                    {
+                        Console.WriteLine(s);
+                    }
+                }
+                else 
+                {
+                    // option not passed
+                    inputFilePath = firstArg;
+                    inputFile = new FileInfo(inputFilePath);
+                    Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {GetWordsCountInTextFileByRegex(inputFilePath)} {GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
+                }
             }
             else 
             {
