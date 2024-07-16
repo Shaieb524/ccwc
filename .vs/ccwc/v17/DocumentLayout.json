@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|c:\\users\\robin\\onedrive\\desktop\\dev\\personal\\codingchallanges\\ccwc\\ccwc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|solutionrelative:ccwc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|c:\\users\\robin\\onedrive\\desktop\\dev\\personal\\codingchallanges\\ccwc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|c:\\users\\robin\\onedrive\\desktop\\dev\\personal\\codingchallanges\\ccwc\\ccwc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{FDB8175F-B9BF-4915-839A-EEB928D503AF}|ccwc.csproj|solutionrelative:ccwc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,11 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ccwc",
               "DocumentMoniker": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\ccwc.csproj",
               "RelativeDocumentMoniker": "ccwc.csproj",
@@ -34,7 +34,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\robin\\OneDrive\\Desktop\\dev\\Personal\\CodingChallanges\\ccwc\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",

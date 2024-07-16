@@ -1,95 +1,106 @@
 ﻿using System.Text.RegularExpressions;
+using System.CommandLine;
 
 class Program
 {
-    static void Main(string[] args) 
+    static int Main(string[] args) 
     {
-        try 
+        var filePahtArg = new Argument<string?>(
+            name: "--file",
+            description: "The input file path (leave empty to use standard input)"
+        );
+
+        var countBytesOpt = new Option<bool>(
+            name: "-b",
+            description: "Count bytes in text file or standard input."
+        );
+
+        var countLinesOpt = new Option<bool>(
+            name: "-l",
+            description: "Count lines in text file or standard input."
+        );
+
+        var countWordsOpt = new Option<bool>(
+            name: "-w",
+            description: "Count words in text file or standard input."
+        );
+
+        var countCharsOpt = new Option<bool>(
+            name: "-ch",
+            description: "Count characters in text file or standard input."
+        );
+
+
+        var rootCommand = new RootCommand
         {
-            string inputFilePath;
-            FileInfo inputFile;
+            Description = "Text input analyzer",
+        };
 
-            if  (args.Length == 1)
+        rootCommand.AddArgument(filePahtArg);
+        rootCommand.AddOption(countBytesOpt);
+        rootCommand.AddOption(countLinesOpt);
+        rootCommand.AddOption(countWordsOpt);
+        rootCommand.AddOption(countCharsOpt);
+
+        rootCommand.SetHandler(CommandHandler, filePahtArg, countBytesOpt, countLinesOpt, countWordsOpt, countCharsOpt);
+
+        return rootCommand.InvokeAsync(args).Result;
+
+    }
+
+    static void CommandHandler(string filePath, bool b, bool l, bool w, bool ch)
+    {
+        Console.WriteLine("FILEEEEE : ", filePath);
+        // TODO check what the F going on here
+        try
+        {
+            if (!string.IsNullOrEmpty(filePath))
             {
-                var firstArg = args[0];
-
-                if (firstArg.StartsWith("-"))
+                // TODO dont forget the no option thing
+                // file path input
+                var inputFile = new FileInfo(filePath);
+                HandleFileOptions(filePath, b, l, w, ch, inputFile);
+            }
+            else if (filePath.StartsWith("-"))
+            {
+                // standard input
+                Console.WriteLine("GHHHHHHHHHHHHHH");
+                var inputStream = Console.OpenStandardInput();
+                using (var reader = new StreamReader(inputStream))
                 {
-                    // file name not passed
-                    Stream inputStream = Console.OpenStandardInput();
-                    using (StreamReader reader = new StreamReader(inputStream))
-                    {
-                        string input = reader.ReadToEnd();
-                        HanldeOptionsForTextInput(args, input);
-                    }
-                }
-                else 
-                {
-                    // option not passed
-                    inputFilePath = firstArg;
-                    inputFile = new FileInfo(inputFilePath);
-                    Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {GetWordsCountInTextFileByRegex(inputFilePath)} {GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
+                    var input = reader.ReadToEnd();
+                    HandleStandardInputOptions(b, l, w, ch, input);
                 }
             }
-            else 
-            {
-                HanldeOptionsForTextFile(args);  
-            }
-            
-        } 
-        catch (IndexOutOfRangeException)
-        {
-            Console.WriteLine("Please make sure to provide option and file path with the command input");
         }
         catch (Exception e)
         {
             Console.WriteLine($"Error: {e}");
         }
-        
-    } 
+    }
 
-    // Duplicate functions for file input and standard input to preserve the "Do One Thing" principle.
-    #region Standard Input
-    static void HanldeOptionsForTextInput(string[] args, string standardInput)
+    // **IMPORTANT** duplicated the functions for file input and standard input to preserve the "Do One Thing" principle.
+
+    #region  Statndard Input
+    static void HandleStandardInputOptions(bool b, bool l, bool w, bool ch, string input)
     {
-        var cmdOption = args[0].ToLower();
-
-        switch (cmdOption)
-        {
-            case "-cc":
-                Console.WriteLine($"{standardInput.Length}");
-                break;
-            
-            case "-l":
-                Console.WriteLine($"{GetLinesCountInTextInputByRegex(standardInput)}");
-                break;
-
-            case "-w":
-                Console.WriteLine($"{GetWordsCountInTextInputByRegex(standardInput)}");
-                break;
-            case "-m":
-                Console.WriteLine($"{GetCharsCountInTextInput(standardInput)}");
-                break;
-
-            default:
-                break;
-        }
+        if (b) Console.WriteLine($"{input.Length}");
+        if (l) Console.WriteLine($"{GetLinesCountInTextInputByRegex(input)}");
+        if (w) Console.WriteLine($"{GetWordsCountInTextInputByRegex(input)}");
+        if (ch) Console.WriteLine($"{GetCharsCountInTextInput(input)}");
     }
 
     static int GetLinesCountInTextInputByRegex(string content)
     {
-        Regex wordRegex = new Regex(@"\n");
-        MatchCollection matches = wordRegex.Matches(content);
-
+        var wordRegex = new Regex(@"\n");
+        var matches = wordRegex.Matches(content);
         return matches.Count;
     }
 
     static int GetWordsCountInTextInputByRegex(string content)
     {
-        // a word is a sequence of one character or more (\w+) between two boundaries (\b)
-        Regex wordRegex = new Regex(@"\b\w+\b");
-        MatchCollection matches = wordRegex.Matches(content);
-
+        var wordRegex = new Regex(@"\b\w+\b");
+        var matches = wordRegex.Matches(content);
         return matches.Count;
     }
 
@@ -100,57 +111,34 @@ class Program
     #endregion
 
     #region File Input
-    static void HanldeOptionsForTextFile(string[] args)
+
+    static void HandleFileOptions(string filePath, bool b, bool l, bool w, bool ch, FileInfo inputFile)
     {
-        var cmdOption = args[0].ToLower();
-        var inputFilePath = args[1];
-        var inputFile = new FileInfo(inputFilePath);
-
-        switch (cmdOption)
-        {
-            case "-cc":
-                Console.WriteLine($"{inputFile.Length} {inputFile.Name}");
-                break;
-            
-            case "-l":
-                Console.WriteLine($"{GetLinesCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
-                break;
-
-            case "-w":
-                Console.WriteLine($"{GetWordsCountInTextFileByRegex(inputFilePath)} {inputFile.Name}");
-                break;
-            case "-m":
-                Console.WriteLine($"{GetCharsCountInTextFile(inputFilePath)} {inputFile.Name}");
-                break;
-
-            default:
-                break;
-        }
+        if (b) Console.WriteLine($"{inputFile.Length} {inputFile.Name}");
+        if (l) Console.WriteLine($"{GetLinesCountInTextFileByRegex(filePath)} {inputFile.Name}");
+        if (w) Console.WriteLine($"{GetWordsCountInTextFileByRegex(filePath)} {inputFile.Name}");
+        if (ch) Console.WriteLine($"{GetCharsCountInTextFile(filePath)} {inputFile.Name}");
     }
 
     static int GetLinesCountInTextFileByRegex(string filePath)
     {
         var content = File.ReadAllText(filePath);
-        Regex wordRegex = new Regex(@"\n");
-        MatchCollection matches = wordRegex.Matches(content);
-
+        var wordRegex = new Regex(@"\n");
+        var matches = wordRegex.Matches(content);
         return matches.Count;
     }
 
-    //TODO check why it is not accurate
     static int GetWordsCountInTextFileByRegex(string filePath)
     {
         var content = File.ReadAllText(filePath);
-        // a word is a sequence of one character or more (\w+) between two boundaries (\b)
-        Regex wordRegex = new Regex(@"\b\w+\b");
-        MatchCollection matches = wordRegex.Matches(content);
-
+        var wordRegex = new Regex(@"\b\w+\b");
+        var matches = wordRegex.Matches(content);
         return matches.Count;
     }
 
     static int GetCharsCountInTextFile(string filePath)
     {
-        string content = File.ReadAllText(filePath);
+        var content = File.ReadAllText(filePath);
         return content.Length;
     }
     #endregion
